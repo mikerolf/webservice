@@ -13,7 +13,10 @@ public class TypesHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-        Set<Integer> ids = api.get("cars");
+        String path = httpExchange.getRequestURI().getPath();
+        String type = path.split("/")[2];
+
+        Set<Integer> ids = api.get(type);
 
         ObjectMapper mapper = new ObjectMapper();
 
