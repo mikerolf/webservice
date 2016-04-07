@@ -1,5 +1,6 @@
-import org.junit.*;
+package proj;
 
+import org.junit.*;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
@@ -12,9 +13,9 @@ public class TypesApiTest {
         transactions.put(2l, new Transaction(1000, "cars"));
         transactions.put(3l, new Transaction(5000, "shopping"));
 
-        Set<Long> ids = new TypesApi(transactions).get("cars");
+        TypesApi api = new TypesApi(transactions);
 
-        assertEquals(2, ids.size());
+        assertEquals(2, api.get("cars").size());
+        assertEquals(1, api.get("shopping").size());
     }
-
 }

@@ -1,7 +1,9 @@
+package proj;
+
 import java.util.*;
 
 public class TypesApi {
-    Map<Long, Transaction> transactions;
+    private Map<Long, Transaction> transactions;
 
     public TypesApi(Map<Long, Transaction> transactions) {
         this.transactions = transactions;
@@ -11,11 +13,11 @@ public class TypesApi {
         Set<Long> ids = new HashSet<Long>();
 
         for (Map.Entry<Long, Transaction> entry : transactions.entrySet()) {
-
-            if (entry.getValue().type.equals(type)) {
+            if (entry.getValue().getType().equals(type)) {
                 ids.add(entry.getKey());
             }
         }
+
         return ids;
     }
 }

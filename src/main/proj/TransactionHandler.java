@@ -1,3 +1,5 @@
+package proj;
+
 import com.fasterxml.jackson.databind.*;
 import com.sun.net.httpserver.*;
 
@@ -5,7 +7,7 @@ import java.io.*;
 import java.util.*;
 
 class TransactionHandler implements HttpHandler {
-    Map<Long, Transaction> transactions;
+    private Map<Long, Transaction> transactions;
 
     public TransactionHandler(Map<Long, Transaction> transactions) {
         this.transactions = transactions;
@@ -17,7 +19,7 @@ class TransactionHandler implements HttpHandler {
         mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
 
         String path = httpExchange.getRequestURI().getPath();
-        long transactionId = Integer.parseInt(path.split("/")[2]);
+        long transactionId = Integer.parseInt(path.split("/")[3]);
 
         String method = httpExchange.getRequestMethod();
 
@@ -29,7 +31,7 @@ class TransactionHandler implements HttpHandler {
 
             transactions.put(transactionId, transaction);
 
-            response = "{ \"status\": \"ok\" }";
+            response = "{\"status\": \"ok\"}";
         }
         else {
             Transaction t = transactions.get(transactionId);

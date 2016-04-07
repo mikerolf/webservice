@@ -2,17 +2,17 @@
 
 compile() {
   rm -fr out
-  mkdir -p out/production/untitled
-  javac -cp "lib/*" -d out/production/untitled src/main/*.java
+  mkdir -p out/
+  javac -cp "lib/*" -d out/ src/main/proj/*.java
 }
 
 run_unit_tests() {
-  javac -cp "out/production/untitled:lib/*" -d out/production/untitled src/test/*.java
-  java -cp  "out/production/untitled:lib/*" org.junit.runner.JUnitCore TypesApiTest
+  javac -cp "out:lib/*" -d out/ src/test/proj/*.java
+  java -cp  "out:lib/*" org.junit.runner.JUnitCore proj.TypesApiTest proj.SumApiTest
 }
 
 start_server() {
-  java -cp "out/production/untitled:lib/*" Main &
+  java -cp "out:lib/*" proj.Main &
   pID=$!
 
   RET=1
@@ -21,6 +21,8 @@ start_server() {
       RET=$?
       printf "."
   done
+
+  printf "UP"
 }
 
 stop_server() {
@@ -32,32 +34,32 @@ call_api() {
   echo $1
   eval $1
   echo
+  echo
 }
 
 main() {
-  echo "1 Compile Server"
+  echo "1) Compile Server"
   compile
   echo
 
-  echo "2 Run Unit Tests"
+  echo "2) Run Unit Tests"
   run_unit_tests
-  echo
 
-  echo "3 Start Server"
+  echo "3) Start Server"
   start_server
   echo
 
   echo
-  echo "4 Run API Tests"
-  call_api "curl -s http://localhost:8000/test"
-  call_api "curl -s http://localhost:8000/transaction/10 -d \"{\\\"amount\\\": 5000, \\\"type\\\": \\\"cars\\\"}\""
-  call_api "curl -s http://localhost:8000/transaction/11 -d \"{\\\"amount\\\": 10000, \\\"type\\\": \\\"shopping\\\", \\\"parent_id\\\": 10}\""
-  call_api "curl -s http://localhost:8000/transaction/10"
-  call_api "curl -s http://localhost:8000/types/cars"
-  call_api "curl -s http://localhost:8000/sum/10"
-  echo
+  echo "4) Run API Calls"
+  call_api "curl -s http://localhost:8000/transactionservice/test"
+  call_api "curl -s http://localhost:8000/transactionservice/transaction/10 -d \"{\\\"amount\\\": 5000, \\\"type\\\": \\\"cars\\\"}\""
+  call_api "curl -s http://localhost:8000/transactionservice/transaction/11 -d \"{\\\"amount\\\": 10000, \\\"type\\\": \\\"shopping\\\", \\\"parent_id\\\": 10}\""
+  call_api "curl -s http://localhost:8000/transactionservice/transaction/10"
+  call_api "curl -s http://localhost:8000/transactionservice/types/cars"
+  call_api "curl -s http://localhost:8000/transactionservice/sum/10"
+  call_api "curl -s http://localhost:8000/transactionservice/sum/11"
 
-  echo "5 Stop Server"
+  echo "5) Stop Server"
   stop_server
 }
 
