@@ -35,8 +35,8 @@ main() {
   compile
   start_server
   echo
-  call_api "curl http://localhost:8000/test"
-  call_api "curl http://localhost:8000/transaction -d \"{\\\"amount\\\": 5000, \\\"type\\\": \\\"cars\\\"}\""
+  call_api "curl -s http://localhost:8000/test"
+  call_api "curl -s http://localhost:8000/transaction/10 -d \"{\\\"amount\\\": 5000, \\\"type\\\": \\\"cars\\\"}\""
   echo
   stop_server
 }

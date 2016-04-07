@@ -3,6 +3,7 @@ import com.sun.net.httpserver.*;
 
 import java.io.*;
 import java.net.*;
+import java.util.*;
 
 public class Program {
 
@@ -28,12 +29,15 @@ public class Program {
     static class TransactionHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange httpExchange) throws IOException {
+            String path = httpExchange.getRequestURI().getPath();
+            int transactionId = Integer.parseInt(path.split("/")[2]);
+
             String body = convertStreamToString(httpExchange.getRequestBody());
-
             ObjectMapper mapper = new ObjectMapper();
-            Transaction t = mapper.readValue(body, Transaction.class);
+            Transaction transaction = mapper.readValue(body, Transaction.class);
 
-            //Do something with transaction
+            Map<Integer, Transaction> transactions = new HashMap<Integer, Transaction>();
+            transactions.put(transactionId, transaction);
 
             String response = "{ \"status\": \"ok\" }";
             httpExchange.sendResponseHeaders(200, response.length());
@@ -57,6 +61,11 @@ public class Program {
         }
         public void setType(String type) {
             this.type = type;
+        }
+
+        @Override
+        public String toString() {
+            return "[" + this.amount + ", " + this.type + "]";
         }
     }
 
