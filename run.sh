@@ -3,12 +3,12 @@
 compile() {
   rm -fr out
   mkdir -p out/production/untitled
-  javac -cp "lib/*" -d out/production/untitled src/Program.java
+  javac -cp "lib/*" -d out/production/untitled src/*.java
 }
 
 start_server() {
   echo "Start server."
-  java -cp "out/production/untitled:lib/*" Program &
+  java -cp "out/production/untitled:lib/*" Main &
   pID=$!
 
   RET=1
@@ -37,6 +37,7 @@ main() {
   echo
   call_api "curl -s http://localhost:8000/test"
   call_api "curl -s http://localhost:8000/transaction/10 -d \"{\\\"amount\\\": 5000, \\\"type\\\": \\\"cars\\\"}\""
+  call_api "curl -s http://localhost:8000/transaction/10"
   echo
   stop_server
 }
