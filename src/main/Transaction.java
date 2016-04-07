@@ -1,6 +1,7 @@
 class Transaction {
     double amount;
     String type;
+    long parentId;
 
     public Transaction() {};
 
@@ -17,12 +18,17 @@ class Transaction {
         return type;
     }
 
+    public long getParentId() {
+        return parentId;
+    }
+
     public void setAmount(double amount) {
         this.amount = amount;
     }
     public void setType(String type) {
         this.type = type;
     }
+    public void setParentId(long parentId) {this.parentId = parentId;}
 
     @Override
     public String toString() {

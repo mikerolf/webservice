@@ -14,6 +14,7 @@ class TransactionHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
 
         String path = httpExchange.getRequestURI().getPath();
         long transactionId = Integer.parseInt(path.split("/")[2]);
@@ -27,6 +28,7 @@ class TransactionHandler implements HttpHandler {
             Transaction transaction = mapper.readValue(body, Transaction.class);
 
             transactions.put(transactionId, transaction);
+
             response = "{ \"status\": \"ok\" }";
         }
         else {

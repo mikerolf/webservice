@@ -51,6 +51,7 @@ main() {
   echo "4 Run API Tests"
   call_api "curl -s http://localhost:8000/test"
   call_api "curl -s http://localhost:8000/transaction/10 -d \"{\\\"amount\\\": 5000, \\\"type\\\": \\\"cars\\\"}\""
+  call_api "curl -s http://localhost:8000/transaction/11 -d \"{\\\"amount\\\": 10000, \\\"type\\\": \\\"shopping\\\", \\\"parent_id\\\": 10}\""
   call_api "curl -s http://localhost:8000/transaction/10"
   call_api "curl -s http://localhost:8000/types/cars"
   call_api "curl -s http://localhost:8000/sum/10"
