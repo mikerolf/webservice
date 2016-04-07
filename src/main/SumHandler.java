@@ -1,26 +1,25 @@
-import com.fasterxml.jackson.databind.*;
 import com.sun.net.httpserver.*;
 
 import java.io.*;
 import java.util.*;
 
-public class TypesHandler implements HttpHandler {
-    TypesApi api;
+public class SumHandler implements HttpHandler {
+    Map<Long, Transaction> transactions;
 
-    public TypesHandler(TypesApi api) {
-        this.api = api;
+    public SumHandler(Map<Long, Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         String path = httpExchange.getRequestURI().getPath();
-        String type = path.split("/")[2];
+        long transactionId = Integer.parseInt(path.split("/")[2]);
 
-        Set<Long> ids = api.get(type);
+        Transaction t = transactions.get(transactionId);
 
-        ObjectMapper mapper = new ObjectMapper();
+        double sum = t.getAmount();
+        String response = "{\"sum\": " + sum + "}";
 
-        String response = mapper.writeValueAsString(ids);
         httpExchange.sendResponseHeaders(200, response.length());
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.getBytes());

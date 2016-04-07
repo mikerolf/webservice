@@ -1,15 +1,15 @@
 class Transaction {
-    int amount;
+    double amount;
     String type;
 
     public Transaction() {};
 
-    public Transaction(int amount, String type) {
+    public Transaction(double amount, String type) {
         this.amount = amount;
         this.type = type;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
@@ -17,7 +17,7 @@ class Transaction {
         return type;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
     public void setType(String type) {

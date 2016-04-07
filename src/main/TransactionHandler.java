@@ -5,9 +5,9 @@ import java.io.*;
 import java.util.*;
 
 class TransactionHandler implements HttpHandler {
-    Map<Integer, Transaction> transactions;
+    Map<Long, Transaction> transactions;
 
-    public TransactionHandler(Map<Integer, Transaction> transactions) {
+    public TransactionHandler(Map<Long, Transaction> transactions) {
         this.transactions = transactions;
     }
 
@@ -16,7 +16,7 @@ class TransactionHandler implements HttpHandler {
         ObjectMapper mapper = new ObjectMapper();
 
         String path = httpExchange.getRequestURI().getPath();
-        int transactionId = Integer.parseInt(path.split("/")[2]);
+        long transactionId = Integer.parseInt(path.split("/")[2]);
 
         String method = httpExchange.getRequestMethod();
 

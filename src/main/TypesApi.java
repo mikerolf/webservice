@@ -1,16 +1,16 @@
 import java.util.*;
 
 public class TypesApi {
-    Map<Integer, Transaction> transactions;
+    Map<Long, Transaction> transactions;
 
-    public TypesApi(Map<Integer, Transaction> transactions) {
+    public TypesApi(Map<Long, Transaction> transactions) {
         this.transactions = transactions;
     }
 
-    public Set<Integer> get(String type) {
-        Set<Integer> ids = new HashSet<Integer>();
+    public Set<Long> get(String type) {
+        Set<Long> ids = new HashSet<Long>();
 
-        for (Map.Entry<Integer, Transaction> entry : transactions.entrySet()) {
+        for (Map.Entry<Long, Transaction> entry : transactions.entrySet()) {
 
             if (entry.getValue().type.equals(type)) {
                 ids.add(entry.getKey());

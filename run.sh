@@ -53,6 +53,7 @@ main() {
   call_api "curl -s http://localhost:8000/transaction/10 -d \"{\\\"amount\\\": 5000, \\\"type\\\": \\\"cars\\\"}\""
   call_api "curl -s http://localhost:8000/transaction/10"
   call_api "curl -s http://localhost:8000/types/cars"
+  call_api "curl -s http://localhost:8000/sum/10"
   echo
 
   echo "5 Stop Server"
