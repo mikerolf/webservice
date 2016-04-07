@@ -3,11 +3,15 @@
 compile() {
   rm -fr out
   mkdir -p out/production/untitled
-  javac -cp "lib/*" -d out/production/untitled src/*.java
+  javac -cp "lib/*" -d out/production/untitled src/main/*.java
+}
+
+run_unit_tests() {
+  javac -cp "out/production/untitled:lib/*" -d out/production/untitled src/test/*.java
+  java -cp  "out/production/untitled:lib/*" org.junit.runner.JUnitCore TypesApiTest
 }
 
 start_server() {
-  echo "Start server."
   java -cp "out/production/untitled:lib/*" Main &
   pID=$!
 
@@ -20,25 +24,38 @@ start_server() {
 }
 
 stop_server() {
-  echo "Stop server."
+  echo "Kill process ID ${pID}"
   kill ${pID}
 }
 
 call_api() {
-  echo
   echo $1
   eval $1
   echo
 }
 
 main() {
+  echo "1 Compile Server"
   compile
+  echo
+
+  echo "2 Run Unit Tests"
+  run_unit_tests
+  echo
+
+  echo "3 Start Server"
   start_server
   echo
+
+  echo
+  echo "4 Run API Tests"
   call_api "curl -s http://localhost:8000/test"
   call_api "curl -s http://localhost:8000/transaction/10 -d \"{\\\"amount\\\": 5000, \\\"type\\\": \\\"cars\\\"}\""
   call_api "curl -s http://localhost:8000/transaction/10"
+  call_api "curl -s http://localhost:8000/types/cars"
   echo
+
+  echo "5 Stop Server"
   stop_server
 }
 

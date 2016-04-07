@@ -2,6 +2,13 @@ class Transaction {
     int amount;
     String type;
 
+    public Transaction() {};
+
+    public Transaction(int amount, String type) {
+        this.amount = amount;
+        this.type = type;
+    }
+
     public int getAmount() {
         return amount;
     }
