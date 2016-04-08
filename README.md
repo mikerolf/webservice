@@ -2,7 +2,7 @@
 A web service that stores transactions in memory. 
 
 ## Running
-The project can by run by executing the <code>run.sh</code> script.
+The project can be run by executing the <code>run.sh</code> script.
 <pre><code>
 $ ./run.sh 
 1) Compile Server
