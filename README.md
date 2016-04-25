@@ -33,12 +33,12 @@ Kill process ID 17080
 
 ## API
 
-| Method  | Path                                             | Asymtotic Behaviour        |
-|---------|--------------------------------------------------|----------------------------|
-| PUT     | /transactionservice/transaction/$transaction_id  | O(1)                       |
-| GET     | /transactionservice/transaction/$transaction_id  | O(1)                       |
-| GET     | /transactionservice/types/$type                  | O(N)                       |
-| GET     | /transactionservice/sum/$transaction_id          | O(N)                       |
+| Method  | Path                                             |
+|---------|--------------------------------------------------|
+| PUT     | /transactionservice/transaction/$transaction_id  |
+| GET     | /transactionservice/transaction/$transaction_id  |
+| GET     | /transactionservice/types/$type                  |
+| GET     | /transactionservice/sum/$transaction_id          |
 
 ##Testing
 1. End-to-End Tests - the <code>run.sh</code> script provides <code>curl</code> commands to test the API endpoints.
